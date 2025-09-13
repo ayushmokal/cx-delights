@@ -111,19 +111,19 @@ export default function Page() {
       <div className="card">
         <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
-        <p className="small">We’re restarting External Delights — quick gifts when customers mention birthdays, wins, or special moments in chat/email. Budget: up to ₹3,000 (≈ $35) per customer; submissions are reviewed EOD.</p>
+        <p className="small">We’re restarting External Delights — quick gifts when customers mention birthdays, wins, or special moments in chat/email. Budget: up to ₹3,000 (≈ $35) per customer.</p>
 
         {/* examples removed by request */}
         <form onSubmit={onSubmit}>
           <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
                  onChange={(e)=>setForm(f=>({...f, ticketLink:e.target.value}))} />
-          <p className="hint">Paste the direct permalink to the conversation or ticket where the moment is mentioned. Avoid screenshots or shortened URLs.</p>
+          <p className="hint">Paste the direct permalink to the conversation or ticket where the moment is mentioned.</p>
 
           <label htmlFor="product">Product Link</label>
-          <input id="product" type="url" placeholder="https://www.amazon.in/..." required value={form.productLink}
+          <input id="product" type="url" placeholder="https://www.amazon.com/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
-          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). No carts or search results; neutral, practical items are preferred.</p>
+          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com or the customer’s regional storefront (e.g., amazon.in, amazon.co.uk). No carts or search results.</p>
 
           <div className="row">
             <div>
@@ -156,10 +156,8 @@ export default function Page() {
             <ul>
               <li><b>Budget:</b> Up to ₹3,000 (≈ $35) per customer. Exceptions need lead approval.</li>
               <li><b>Timing:</b> Submit when customers mention birthdays, wins, or similar moments in chat/email.</li>
-              <li><b>Volume:</b> Aim for 10–20 delights per month to keep the habit alive.</li>
-              <li><b>Fulfilment:</b> Requests are batched and processed EOD via Amazon or regional retailers.</li>
-              <li><b>Items:</b> Favor neutral, useful items. Avoid sizing‑specific apparel, personalized goods, or gift cards unless approved.</li>
-              <li><b>Links:</b> Paste a clean product URL (no cart or referral links). Regional storefronts are fine.</li>
+              <li><b>Items:</b> Choose useful, thoughtful items — think carefully.</li>
+              <li><b>Links:</b> Paste a clean product URL (no cart or referral links). Preferred: Amazon.com or the customer’s regional storefront.</li>
               <li><b>Privacy:</b> Don’t include addresses or extra PII here—only the ticket link. Logistics are handled separately.</li>
               <li><b>Review:</b> Submissions may be adjusted or declined if they fall outside policy.</li>
             </ul>
