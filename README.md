@@ -46,3 +46,4 @@ Sheet name: recommended `Submissions` (the script falls back to the first sheet 
 - The API route `app/api/submit/route.ts` validates input and forwards to Apps Script. If the env var is missing, it returns `202 Accepted` with a warning to avoid blocking the UX.
 - Confetti is implemented via a lightweight canvas animation (`#confetti-canvas`).
 
+Repo: https://github.com/ayushmokal/cx-delights
