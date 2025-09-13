@@ -111,19 +111,19 @@ export default function Page() {
       <div className="card">
         <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
-        <p className="small">Fast, distraction‑free capture for small customer delights. Paste the ticket and a product link (≤ $35); the team sheet updates automatically.</p>
+        <p className="small">We’re restarting External Delights — quick gifts when customers mention birthdays, wins, or special moments in chat/email. Budget: up to ₹3,000 (≈ $35) per customer; submissions are reviewed EOD.</p>
 
         {/* examples removed by request */}
         <form onSubmit={onSubmit}>
           <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
                  onChange={(e)=>setForm(f=>({...f, ticketLink:e.target.value}))} />
-          <p className="hint">Use the direct permalink to the customer conversation or ticket. Avoid screenshots or shortened URLs.</p>
+          <p className="hint">Paste the direct permalink to the conversation or ticket where the moment is mentioned. Avoid screenshots or shortened URLs.</p>
 
           <label htmlFor="product">Product Link</label>
           <input id="product" type="url" placeholder="https://www.amazon.in/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
-          <p className="hint">Link to a single item page priced at or under $35. No carts or search results; neutral, practical items are preferred.</p>
+          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). No carts or search results; neutral, practical items are preferred.</p>
 
           <div className="row">
             <div>
@@ -131,7 +131,7 @@ export default function Page() {
               <input id="occasion" type="text" placeholder="Birthday / New baby / Promotion / Achievement"
                      required value={form.occasion}
                      onChange={(e)=>setForm(f=>({...f, occasion:e.target.value}))} />
-              <p className="hint">One short phrase that captures the moment (e.g., “Birthday”, “Milestone unlocked”, “Great save”).</p>
+              <p className="hint">One short phrase that captures the moment (e.g., “Birthday”, “Milestone unlocked”, “New baby”).</p>
             </div>
             <div>
               <label htmlFor="agent">Your Name</label>
@@ -154,11 +154,13 @@ export default function Page() {
           <summary>Delight Guidelines</summary>
           <div className="content">
             <ul>
-              <li><b>Budget:</b> Up to $35 per customer. Exceptions need lead approval.</li>
-              <li><b>Timing:</b> Use for positive moments explicitly mentioned by customers in your chat or email.</li>
-              <li><b>Items:</b> Favor neutral, useful items. Avoid sizing-specific apparel or personalized goods.</li>
-              <li><b>Links:</b> Paste a clean product URL (no referrals or cart links). Regional stores are fine.</li>
-              <li><b>Privacy:</b> Don’t include personal addresses or extra PII in this form—only the ticket link.</li>
+              <li><b>Budget:</b> Up to ₹3,000 (≈ $35) per customer. Exceptions need lead approval.</li>
+              <li><b>Timing:</b> Submit when customers mention birthdays, wins, or similar moments in chat/email.</li>
+              <li><b>Volume:</b> Aim for 10–20 delights per month to keep the habit alive.</li>
+              <li><b>Fulfilment:</b> Requests are batched and processed EOD via Amazon or regional retailers.</li>
+              <li><b>Items:</b> Favor neutral, useful items. Avoid sizing‑specific apparel, personalized goods, or gift cards unless approved.</li>
+              <li><b>Links:</b> Paste a clean product URL (no cart or referral links). Regional storefronts are fine.</li>
+              <li><b>Privacy:</b> Don’t include addresses or extra PII here—only the ticket link. Logistics are handled separately.</li>
               <li><b>Review:</b> Submissions may be adjusted or declined if they fall outside policy.</li>
             </ul>
           </div>
