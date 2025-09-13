@@ -83,3 +83,15 @@ textarea{min-height:96px; resize:vertical}
 
 /* Confetti canvas overlay */
 #confetti-canvas{position:fixed; inset:0; pointer-events:none}
+
+/* Field hints */
+.hint{margin:6px 0 0; font-size:12px; color:var(--muted)}
+
+/* Collapsible panel for guidelines */
+details.panel{margin-top:14px; background:#0c0c0c; border:1px solid #1f1f1f; border-radius:12px; padding:10px 14px}
+details.panel > summary{cursor:pointer; list-style:none; font-weight:800; color:#e5e5e5}
+details.panel > summary::-webkit-details-marker{display:none}
+details.panel[open]{padding-bottom:12px}
+details.panel .content{margin-top:8px; color:#c9c9c9}
+details.panel ul{margin:8px 0 0 18px; padding:0}
+details.panel li{margin:6px 0}

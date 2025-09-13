@@ -111,17 +111,19 @@ export default function Page() {
       <div className="card">
         <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
-        <p className="small">Fast, distraction‑free capture for small customer delights. Paste the ticket and an Amazon.com link (≤ $35); we’ll log it to the team sheet.</p>
+        <p className="small">Fast, distraction‑free capture for small customer delights. Paste the ticket and a product link (≤ $35); the team sheet updates automatically.</p>
 
         {/* examples removed by request */}
         <form onSubmit={onSubmit}>
           <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
                  onChange={(e)=>setForm(f=>({...f, ticketLink:e.target.value}))} />
+          <p className="hint">Use the direct permalink to the customer conversation or ticket. Avoid screenshots or shortened URLs.</p>
 
-          <label htmlFor="product">Amazon Product Link</label>
+          <label htmlFor="product">Product Link</label>
           <input id="product" type="url" placeholder="https://www.amazon.in/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
+          <p className="hint">Link to a single item page priced at or under $35. No carts or search results; neutral, practical items are preferred.</p>
 
           <div className="row">
             <div>
@@ -129,11 +131,13 @@ export default function Page() {
               <input id="occasion" type="text" placeholder="Birthday / New baby / Promotion / Achievement"
                      required value={form.occasion}
                      onChange={(e)=>setForm(f=>({...f, occasion:e.target.value}))} />
+              <p className="hint">One short phrase that captures the moment (e.g., “Birthday”, “Milestone unlocked”, “Great save”).</p>
             </div>
             <div>
               <label htmlFor="agent">Your Name</label>
               <input id="agent" type="text" placeholder="Agent name" required value={form.agentName}
                      onChange={(e)=>setForm(f=>({...f, agentName:e.target.value}))} />
+              <p className="hint">Used for attribution on the sheet. Please use your full name.</p>
             </div>
           </div>
 
@@ -146,6 +150,19 @@ export default function Page() {
         {result && (
           <p className={result.ok ? 'success' : ''} style={{marginTop:12}}>{result.message}</p>
         )}
+        <details className="panel">
+          <summary>Delight Guidelines</summary>
+          <div className="content">
+            <ul>
+              <li><b>Budget:</b> Up to $35 per customer. Exceptions need lead approval.</li>
+              <li><b>Timing:</b> Use for positive moments explicitly mentioned by customers in your chat or email.</li>
+              <li><b>Items:</b> Favor neutral, useful items. Avoid sizing-specific apparel or personalized goods.</li>
+              <li><b>Links:</b> Paste a clean product URL (no referrals or cart links). Regional stores are fine.</li>
+              <li><b>Privacy:</b> Don’t include personal addresses or extra PII in this form—only the ticket link.</li>
+              <li><b>Review:</b> Submissions may be adjusted or declined if they fall outside policy.</li>
+            </ul>
+          </div>
+        </details>
       </div>
     </div>
   );
