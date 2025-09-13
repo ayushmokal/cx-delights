@@ -113,17 +113,7 @@ export default function Page() {
         <h1>External Delights Submission</h1>
         <p className="small">Fast, distraction‑free capture for small customer delights. Paste the ticket and an Amazon.com link (≤ $35); we’ll log it to the team sheet.</p>
 
-        <div className="examples">
-          <span className="label">Example ideas from Amazon.com</span>
-          <div className="chips">
-            <a className="chip" href="https://www.amazon.com/s?k=chocolate+gift+box+assorted" target="_blank" rel="noreferrer">Birthday: chocolate gift box</a>
-            <a className="chip" href="https://www.amazon.com/s?k=desk+plant+live+small" target="_blank" rel="noreferrer">Promotion: small desk plant</a>
-            <a className="chip" href="https://www.amazon.com/s?k=insulated+water+bottle+24oz" target="_blank" rel="noreferrer">PR/Run: insulated water bottle</a>
-            <a className="chip" href="https://www.amazon.com/s?k=scented+candle+soy" target="_blank" rel="noreferrer">New home: scented candle</a>
-            <a className="chip" href="https://www.amazon.com/s?k=journal+notebook+hardcover" target="_blank" rel="noreferrer">Achievement: hardcover journal</a>
-            <a className="chip" href="https://www.amazon.com/s?k=herbal+tea+variety+pack" target="_blank" rel="noreferrer">Get well: herbal tea variety</a>
-          </div>
-        </div>
+        {/* examples removed by request */}
         <form onSubmit={onSubmit}>
           <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
