@@ -38,7 +38,7 @@ function useConfetti() {
       x: w/2, y: h/2, r: 4+Math.random()*4,
       dx: (Math.random()*2-1)*6,
       dy: -Math.random()*6-4,
-      color: ['#f97316','#16a34a','#164e63','#eab308','#06b6d4'][Math.floor(Math.random()*5)],
+      color: ['#ffffff','#e5e7eb','#a3a3a3'][Math.floor(Math.random()*3)],
       life: 60 + Math.random()*40
     }));
     let frame = 0;
@@ -102,9 +102,16 @@ export default function Page() {
 
   return (
     <div className="container">
+      {/* Background ornaments */}
+      <div className="bg" aria-hidden>
+        <div className="orb large" style={{top:-60, left:-80}} />
+        <div className="orb medium" style={{bottom:-40, right:-60, animationDelay:'-3s'}} />
+        <div className="orb small" style={{top:200, right:-40, animationDelay:'-6s'}} />
+      </div>
       <div className="card">
+        <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
-        <p className="small">Delights budget: up to ₹3,000 (~$35) per user. Submit when a user mentions birthdays, special achievements, or similar moments over chat/email.</p>
+        <p className="small">A minimal, distraction‑free form to log delight requests. Keep links precise and descriptions short.</p>
         <form onSubmit={onSubmit}>
           <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
