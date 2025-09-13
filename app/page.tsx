@@ -132,15 +132,12 @@ export default function Page() {
             <button className="btn" type="submit" disabled={!allValid || submitting}>
               {submitting ? 'Submitting…' : 'Submit Delight'}
             </button>
-            <a className="btn secondary" href="https://docs.google.com/spreadsheets/d/1UXdv8Jya0EiYYeDNJAJTPErlOh_wv2L8LFwqEQ7RrL8/edit?gid=0#gid=0" target="_blank" rel="noreferrer">Open Sheet</a>
           </div>
         </form>
         {result && (
           <p className={result.ok ? 'success' : ''} style={{marginTop:12}}>{result.message}</p>
         )}
-        <p className="footer">On submit, data syncs to Google Sheets via Apps Script. If the Apps Script is down, you may still see an acceptance message with a warning.</p>
       </div>
     </div>
   );
 }
-
