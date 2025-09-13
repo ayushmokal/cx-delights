@@ -45,13 +45,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, queued: true, warning: 'Apps Script URL not configured' }, { status: 202 });
     }
 
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      // 5s safety timeout via AbortController
-      signal: AbortSignal.timeout(5000),
-    });
+    let res: Response;
+    try {
+      res = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        // 5s safety timeout via AbortController
+        signal: AbortSignal.timeout(5000),
+      });
+    } catch (err) {
+      console.warn('Apps Script unreachable, accepting with warning:', err);
+      return NextResponse.json(
+        { ok: true, queued: true, warning: 'Apps Script unreachable at the moment' },
+        { status: 202 }
+      );
+    }
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
@@ -64,4 +73,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: err?.message || 'Unknown error' }, { status: 500 });
   }
 }
-
