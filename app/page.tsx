@@ -123,7 +123,7 @@ export default function Page() {
           <label htmlFor="product">Product Link</label>
           <input id="product" type="url" placeholder="https://www.amazon.com/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
-          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com or the customer’s regional storefront (e.g., amazon.in, amazon.co.uk). No carts or search results.</p>
+          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com </p>
 
           <div className="row">
             <div>
@@ -158,7 +158,6 @@ export default function Page() {
               <li><b>Timing:</b> Submit when customers mention birthdays, wins, or similar moments in chat/email.</li>
               <li><b>Items:</b> Choose useful, thoughtful items — think carefully.</li>
               <li><b>Links:</b> Paste a clean product URL (no cart or referral links). Preferred: Amazon.com or the customer’s regional storefront.</li>
-              <li><b>Privacy:</b> Don’t include addresses or extra PII here—only the ticket link. Logistics are handled separately.</li>
               <li><b>Review:</b> Submissions may be adjusted or declined if they fall outside policy.</li>
             </ul>
           </div>
