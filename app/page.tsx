@@ -102,12 +102,6 @@ export default function Page() {
 
   return (
     <div className="container">
-      {/* Background ornaments */}
-      <div className="bg" aria-hidden>
-        <div className="orb large" style={{top:-60, left:-80}} />
-        <div className="orb medium" style={{bottom:-40, right:-60, animationDelay:'-3s'}} />
-        <div className="orb small" style={{top:200, right:-40, animationDelay:'-6s'}} />
-      </div>
       <div className="card">
         <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
@@ -123,7 +117,7 @@ export default function Page() {
           <label htmlFor="product">Product Link</label>
           <input id="product" type="url" placeholder="https://www.amazon.com/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
-          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com </p>
+          <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com . No carts or search results.</p>
 
           <div className="row">
             <div>
