@@ -22,21 +22,10 @@ body{
 /* Subtle animated background */
 .bg{
   position:fixed; inset:0; pointer-events:none; overflow:hidden;
-  background: radial-gradient(600px 600px at 15% 10%, rgba(255,255,255,0.06), transparent 60%),
-              radial-gradient(500px 500px at 85% 80%, rgba(255,255,255,0.05), transparent 60%),
-              linear-gradient(180deg, #0b0b0b 0%, #000 100%);
+  background:#fff; /* force plain white background */
 }
-.bg::after{
-  content:""; position:absolute; inset:0; opacity:0.25; mix-blend-mode:overlay;
-  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(circle at 50% 50%, black 60%, transparent 100%);
-}
-.orb{position:absolute; border-radius:999px; filter:blur(12px); opacity:0.25;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.06) 60%, transparent 70%);
-  animation: float 14s ease-in-out infinite;
-}
+.bg::after{ content:none; }
+.orb{ display:none; }
 .orb.small{width:220px; height:220px;}
 .orb.medium{width:320px; height:320px;}
 .orb.large{width:460px; height:460px;}
