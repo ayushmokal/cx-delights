@@ -1,12 +1,12 @@
 :root{
-  /* Ultrahuman-inspired monochrome palette */
-  --bg:#ffffff; /* set background to white */
-  --surface:#111111;
-  --border:#1f1f1f;
-  --text:#e6e6e6;
-  --muted:#9ca3af;
-  --primary:#ffffff;
-  --success:#a3e635; /* subtle lime for success */
+  /* Light theme */
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --border:#e5e7eb;
+  --text:#1f2937;   /* slate-800 */
+  --muted:#6b7280;  /* gray-500 */
+  --primary:#111111;/* near-black button */
+  --success:#16a34a;/* green-600 */
 }
 
 *{box-sizing:border-box}
@@ -34,22 +34,21 @@ body{
 .container{ max-width:760px; margin:0 auto; padding:48px 20px; }
 
 .card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  background: var(--surface);
   border:1px solid var(--border);
-  border-radius:16px; padding:28px; box-shadow:0 8px 30px rgba(0,0,0,0.35);
-  backdrop-filter: blur(8px);
+  border-radius:16px; padding:28px; box-shadow:0 8px 24px rgba(0,0,0,0.08);
 }
 
-h1{margin:0 0 6px; color:var(--primary); letter-spacing:-0.02em}
-h2{margin:24px 0 8px; color:var(--primary)}
+h1{margin:0 0 6px; color:#0a0a0a; letter-spacing:-0.02em}
+h2{margin:24px 0 8px; color:#0a0a0a}
 p.small{margin:6px 0 16px; font-size:0.95rem; color:var(--muted)}
 
 label{display:block; font-weight:600; margin:14px 0 8px}
 input[type="text"], input[type="url"], select, textarea{
-  width:100%; padding:14px 14px; border:1px solid #262626; border-radius:12px; font-size:14px; color:var(--text); outline:none; background:#0d0d0d;
+  width:100%; padding:14px 14px; border:1px solid #d1d5db; border-radius:12px; font-size:14px; color:var(--text); outline:none; background:#ffffff;
 }
-input::placeholder, textarea::placeholder{color:#6b7280}
-input:focus, select:focus, textarea:focus{border-color:#e5e7eb; box-shadow:0 0 0 4px rgba(255,255,255,0.08)}
+input::placeholder, textarea::placeholder{color:#9ca3af}
+input:focus, select:focus, textarea:focus{border-color:#111; box-shadow:0 0 0 4px rgba(17,17,17,0.08)}
 textarea{min-height:96px; resize:vertical}
 
 .row{display:grid; grid-template-columns:1fr; gap:14px}
@@ -57,16 +56,16 @@ textarea{min-height:96px; resize:vertical}
 
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  background:var(--primary); color:#0a0a0a; border:1px solid #fff; border-radius:12px; padding:12px 18px; font-weight:800; cursor:pointer;
+  background:var(--primary); color:#ffffff; border:1px solid #111; border-radius:12px; padding:12px 18px; font-weight:800; cursor:pointer;
   transition: transform .08s ease, background .2s ease, color .2s ease;
 }
 .btn:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn:disabled{opacity:0.5; cursor:not-allowed}
-.btn.secondary{background:transparent; color:var(--primary); border-color:#2b2b2b}
+.btn.secondary{background:transparent; color:#111; border-color:#d1d5db}
 .success{color:var(--success)}
 
-.badge{display:inline-block; padding:3px 10px; border-radius:999px; background:#141414; color:#e5e5e5; border:1px solid #222; font-size:12px; font-weight:700; letter-spacing:.02em}
+.badge{display:inline-block; padding:3px 10px; border-radius:999px; background:#f3f4f6; color:#0a0a0a; border:1px solid var(--border); font-size:12px; font-weight:700; letter-spacing:.02em}
 
 .footer{margin-top:18px; font-size:12px; color:#9ca3af}
 
@@ -77,10 +76,10 @@ textarea{min-height:96px; resize:vertical}
 .hint{margin:6px 0 0; font-size:12px; color:var(--muted)}
 
 /* Collapsible panel for guidelines */
-details.panel{margin-top:14px; background:#0c0c0c; border:1px solid #1f1f1f; border-radius:12px; padding:10px 14px}
-details.panel > summary{cursor:pointer; list-style:none; font-weight:800; color:#e5e5e5}
+details.panel{margin-top:14px; background:#f9fafb; border:1px solid var(--border); border-radius:12px; padding:10px 14px}
+details.panel > summary{cursor:pointer; list-style:none; font-weight:800; color:#0a0a0a}
 details.panel > summary::-webkit-details-marker{display:none}
 details.panel[open]{padding-bottom:12px}
-details.panel .content{margin-top:8px; color:#c9c9c9}
+details.panel .content{margin-top:8px; color:#374151}
 details.panel ul{margin:8px 0 0 18px; padding:0}
 details.panel li{margin:6px 0}
