@@ -33,12 +33,13 @@ function useConfetti() {
     if (!ctx) return;
     const { innerWidth:w, innerHeight:h } = window;
     canvas.width = w; canvas.height = h;
-    const N = 120;
+    const N = 150;
+    const colors = ['#ff4d4f','#40a9ff','#faad14','#52c41a','#9254de','#13c2c2','#eb2f96'];
     const parts = Array.from({length:N}, () => ({
       x: w/2, y: h/2, r: 4+Math.random()*4,
       dx: (Math.random()*2-1)*6,
       dy: -Math.random()*6-4,
-      color: ['#ffffff','#e5e7eb','#a3a3a3'][Math.floor(Math.random()*3)],
+      color: colors[Math.floor(Math.random()*colors.length)],
       life: 60 + Math.random()*40
     }));
     let frame = 0;

@@ -67,8 +67,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'Apps Script error', detail: text?.slice(0, 500) }, { status: 502 });
     }
 
-    const json = await res.json().catch(() => ({ ok: true }));
-    return NextResponse.json({ ok: true, ...json }, { status: 200 });
+    // Some Apps Script failures come back as 200 text/html error pages.
+    // Treat non-JSON responses as an error so the UI doesn’t show false success.
+    const contentType = res.headers.get('content-type') || '';
+    const raw = await res.text().catch(() => '');
+    let parsed: any = null;
+    if (/application\/json/i.test(contentType)) {
+      try { parsed = JSON.parse(raw); } catch {}
+    } else {
+      try { parsed = JSON.parse(raw); } catch {}
+    }
+
+    if (!parsed || typeof parsed !== 'object') {
+      return NextResponse.json(
+        { ok: false, error: 'Apps Script returned non-JSON', detail: raw?.slice(0, 500) },
+        { status: 502 }
+      );
+    }
+
+    if (parsed.ok !== true) {
+      return NextResponse.json({ ok: false, error: parsed.error || 'Apps Script error' }, { status: 502 });
+    }
+
+    return NextResponse.json({ ok: true, ...parsed }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err?.message || 'Unknown error' }, { status: 500 });
   }
