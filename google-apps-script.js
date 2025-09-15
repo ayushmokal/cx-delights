@@ -1,5 +1,8 @@
-// Replace with your actual Slack webhook URL
-const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+// Slack webhook URL is read from Script Properties:
+// File → Project settings → Script properties → add key `SLACK_WEBHOOK_URL`
+const SLACK_WEBHOOK_URL = (function(){
+  try { return PropertiesService.getScriptProperties().getProperty('SLACK_WEBHOOK_URL') || ''; } catch (e) { return ''; }
+})();
 
 // This function should be called whenever a new row is added to your sheet
 function onFormSubmit(e) {
@@ -74,6 +77,9 @@ function onFormSubmit(e) {
 }
 
 function sendToSlack(message) {
+  if (!SLACK_WEBHOOK_URL) {
+    throw new Error('SLACK_WEBHOOK_URL not set in Script Properties');
+  }
   const options = {
     'method': 'POST',
     'headers': {
