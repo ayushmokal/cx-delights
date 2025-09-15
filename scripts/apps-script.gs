@@ -6,11 +6,11 @@
 
 const SPREADSHEET_ID = '1UXdv8Jya0EiYYeDNJAJTPErlOh_wv2L8LFwqEQ7RrL8';
 const SHEET_NAME_PREFERRED = 'Submissions'; // if missing, falls back to first sheet
-// Prefer storing secrets in Script Properties: File > Project properties > Script properties
-// Add key `SLACK_WEBHOOK_URL` there. If not set, Slack is skipped.
-const SLACK_WEBHOOK_URL = (function() {
-  try { return PropertiesService.getScriptProperties().getProperty('SLACK_WEBHOOK_URL') || ''; } catch (e) { return ''; }
-})();
+// Slack webhook is stored in Script Properties under key `SLACK_WEBHOOK_URL`.
+function _getSlackWebhook() {
+  try { return PropertiesService.getScriptProperties().getProperty('SLACK_WEBHOOK_URL') || ''; }
+  catch (e) { return ''; }
+}
 
 function _getSheet() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -77,7 +77,8 @@ function doPost(e) {
 
     // Send Slack notification after successful submission (best-effort)
     try {
-      if (SLACK_WEBHOOK_URL) {
+      var _wh = _getSlackWebhook();
+      if (_wh) {
         sendSlackNotification({
           timestamp: when,
           agentName: String(data.agentName).trim(),
@@ -85,7 +86,7 @@ function doPost(e) {
           ticketLink: ticket,
           productLink: product,
         });
-      }
+      } else { console.warn('SLACK_WEBHOOK_URL not set; skipping Slack'); }
     } catch (slackErr) {
       console.error('Slack notification failed:', slackErr);
       // Do not fail overall request on Slack errors
@@ -98,11 +99,13 @@ function doPost(e) {
 }
 
 function sendSlackNotification(submissionData) {
-  var timestamp = submissionData.timestamp;
-  var agentName = submissionData.agentName;
-  var occasion = submissionData.occasion;
-  var ticketLink = submissionData.ticketLink;
-  var productLink = submissionData.productLink;
+  // Be defensive: tolerate undefined payloads
+  submissionData = submissionData || {};
+  var timestamp = submissionData.timestamp || new Date().toISOString();
+  var agentName = String(submissionData.agentName || '');
+  var occasion = String(submissionData.occasion || '');
+  var ticketLink = String(submissionData.ticketLink || '');
+  var productLink = String(submissionData.productLink || '');
 
   var formattedTime = (new Date(timestamp)).toLocaleString('en-US', {
     timeZone: 'Asia/Kolkata',
@@ -110,13 +113,15 @@ function sendSlackNotification(submissionData) {
     timeStyle: 'short'
   });
 
+  var mention = '<!here> 🎉 New External Delight Submission';
   var slackMessage = {
-    text: '🎉 New External Delight Submission!',
+    text: mention,
+    link_names: 1,
+    unfurl_links: false,
+    unfurl_media: false,
     blocks: [
-      {
-        type: 'header',
-        text: { type: 'plain_text', text: '🎉 New External Delight Submission' }
-      },
+      { type: 'section', text: { type: 'mrkdwn', text: mention } },
+      { type: 'header', text: { type: 'plain_text', text: 'External Delight Submission' } },
       {
         type: 'section',
         fields: [
@@ -140,6 +145,8 @@ function sendSlackNotification(submissionData) {
     ]
   };
 
+  var WH = _getSlackWebhook();
+  if (!WH) { console.warn('SLACK_WEBHOOK_URL missing — skipping Slack notification'); return; }
   var options = {
     method: 'post',
     contentType: 'application/json',
@@ -147,9 +154,21 @@ function sendSlackNotification(submissionData) {
     muteHttpExceptions: true
   };
 
-  var resp = UrlFetchApp.fetch(SLACK_WEBHOOK_URL, options);
+  var resp = UrlFetchApp.fetch(WH, options);
   var code = resp.getResponseCode();
   if (code !== 200) {
     throw new Error('Slack webhook failed with status: ' + code + ' body: ' + resp.getContentText());
   }
+}
+
+// Helper to manually test Slack from editor
+function testSlackNotification() {
+  sendSlackNotification({
+    timestamp: new Date().toISOString(),
+    agentName: 'Editor Test',
+    occasion: 'Test',
+    ticketLink: 'https://example.com/ticket',
+    productLink: 'https://amazon.com/item'
+  });
+  console.log('Slack test attempted');
 }

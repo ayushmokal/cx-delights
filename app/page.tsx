@@ -69,6 +69,8 @@ export default function Page() {
   const [result, setResult] = useState<{ ok: boolean; message: string; } | null>(null);
   const { burst } = useConfetti();
 
+  const [occasionPreset, setOccasionPreset] = useState<string>('');
+
   const allValid =
     isUrl(form.ticketLink) &&
     isUrl(form.productLink) &&
@@ -103,49 +105,93 @@ export default function Page() {
 
   return (
     <div className="container">
+      <div className="hero">
+        <div className="emoji"><span>🎁</span> <span className="badge">CX · Delights</span></div>
+        <div className="title">External Delights Submission</div>
+        <p className="sub">We're restarting External Delights — quick gifts when customers mention birthdays, wins, or special moments in chat/email.</p>
+        <div className="budget">⭐ Budget: up to ₹3,000 (≈ $35)</div>
+      </div>
       <div className="card">
+        <div className="card-head">
+          <div className="left"><span>❤️</span> <span>Submit a Delight</span></div>
+        </div>
         <span className="badge">CX · Delights</span>
         <h1>External Delights Submission</h1>
         <p className="small">We’re restarting External Delights — quick gifts when customers mention birthdays, wins, or special moments in chat/email. Budget: up to ₹3,000 (≈ $35) per customer.</p>
 
         {/* examples removed by request */}
         <form onSubmit={onSubmit}>
-          <label htmlFor="ticket">Ticket Link (Email/Chat)</label>
+          <label htmlFor="ticket" className="label-row"><span className="icon">💬</span> <span>Ticket Link (Email/Chat)</span> <span className="req">*</span></label>
           <input id="ticket" type="url" placeholder="https://..." required value={form.ticketLink}
                  onChange={(e)=>setForm(f=>({...f, ticketLink:e.target.value}))} />
           <p className="hint">Paste the direct permalink to the conversation or ticket where the moment is mentioned.</p>
 
-          <label htmlFor="product">Product Link</label>
+          <label htmlFor="product" className="label-row"><span className="icon">🔗</span> <span>Product Link</span> <span className="req">*</span></label>
           <input id="product" type="url" placeholder="https://www.amazon.com/..." required value={form.productLink}
                  onChange={(e)=>setForm(f=>({...f, productLink:e.target.value}))} />
           <p className="hint">Link to a single item page within ₹3,000 (≈ $35). Preferred: Amazon.com . No carts or search results.</p>
 
-          <div className="row">
-            <div>
-              <label htmlFor="occasion">Occasion</label>
-              <input id="occasion" type="text" placeholder="Birthday / New baby / Promotion / Achievement"
-                     required value={form.occasion}
-                     onChange={(e)=>setForm(f=>({...f, occasion:e.target.value}))} />
-              <p className="hint">One short phrase that captures the moment (e.g., “Birthday”, “Milestone unlocked”, “New baby”).</p>
+          <label className="label-row"><span className="icon">📅</span> <span>Occasion</span> <span className="req">*</span></label>
+          <div className="chip-grid" role="group" aria-label="Occasion">
+            {[
+              {label:'Birthday', icon:'🎂'},
+              {label:'New Baby', icon:'🍼'},
+              {label:'Promotion', icon:'🎉'},
+              {label:'Achievement', icon:'🏆'},
+              {label:'Other Special Moment', icon:'✨'},
+            ].map(opt => (
+              <button
+                key={opt.label}
+                type="button"
+                className={`chip ${occasionPreset===opt.label ? 'selected' : ''}`}
+                aria-pressed={occasionPreset===opt.label}
+                onClick={()=>{
+                  setOccasionPreset(opt.label);
+                  if (opt.label === 'Other Special Moment') {
+                    setForm(f=>({...f, occasion:''}));
+                  } else {
+                    setForm(f=>({...f, occasion: opt.label }));
+                  }
+                }}
+              >
+                <span className="left"><span className="icon">{opt.icon}</span>{opt.label}</span>
+                <span className="radio" aria-hidden="true"></span>
+              </button>
+            ))}
+          </div>
+          {occasionPreset === 'Other Special Moment' && (
+            <div style={{marginTop:12}}>
+              <input
+                id="occasion"
+                type="text"
+                placeholder="One short phrase that captures the moment"
+                required
+                value={form.occasion}
+                onChange={(e)=>setForm(f=>({...f, occasion:e.target.value}))}
+              />
+              <p className="hint">Example: “Milestone unlocked”, “First paycheck surprise”, “New puppy”.</p>
             </div>
+          )}
+
+          <div className="row" style={{marginTop:10}}>
             <div>
-              <label htmlFor="agent">Your Name</label>
+              <label htmlFor="agent" className="label-row"><span className="icon">👤</span> <span>Your Name</span> <span className="req">*</span></label>
               <input id="agent" type="text" placeholder="Agent name" required value={form.agentName}
                      onChange={(e)=>setForm(f=>({...f, agentName:e.target.value}))} />
               <p className="hint">Used for attribution on the sheet. Please use your full name.</p>
             </div>
           </div>
 
-          <div style={{display:'flex', gap:12, marginTop:18}}>
+          <div style={{display:'flex', gap:12, marginTop:18, justifyContent:'center'}}>
             <button className="btn" type="submit" disabled={!allValid || submitting}>
-              {submitting ? 'Submitting…' : 'Submit Delight'}
+              {submitting ? 'Submitting…' : '🛫 Submit Delight'}
             </button>
           </div>
         </form>
         {result && (
           <p className={result.ok ? 'success' : ''} style={{marginTop:12}}>{result.message}</p>
         )}
-        <details className="panel">
+        <details className="panel" id="guidelines">
           <summary>Delight Guidelines</summary>
           <div className="content">
             <ul>
